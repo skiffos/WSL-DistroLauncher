@@ -43,10 +43,13 @@ HRESULT InstallDistribution(bool createUser)
 	}
 
 	// Use the Skiff Core user.
+	/*
+	TODO: wait for core user to be created.
 	hr = SetDefaultUser(L"core");
 	if (FAILED(hr)) {
 		return hr;
 	}
+	*/
 
     return hr;
 }
@@ -95,7 +98,6 @@ int wmain(int argc, wchar_t const *argv[])
     HRESULT hr = S_OK;
     if (!g_wslApi.WslIsDistributionRegistered()) {
 
-        // If the "--root" option is specified, do not create a user account.
         bool useRoot = ((installOnly) && (arguments.size() > 1) && (arguments[1] == ARG_INSTALL_ROOT));
         hr = InstallDistribution(!useRoot);
         if (FAILED(hr)) {

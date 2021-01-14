@@ -5,33 +5,6 @@
 
 #include "stdafx.h"
 
-bool DistributionInfo::CreateUser(std::wstring_view userName)
-{
-    // Create the user account.
-    DWORD exitCode;
-    std::wstring commandLine = L"/usr/sbin/adduser --quiet --gecos '' ";
-    commandLine += userName;
-    HRESULT hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
-    if ((FAILED(hr)) || (exitCode != 0)) {
-        return false;
-    }
-
-    // Add the user account to any relevant groups.
-    commandLine = L"/usr/sbin/usermod -aG adm,cdrom,sudo,dip,plugdev ";
-    commandLine += userName;
-    hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
-    if ((FAILED(hr)) || (exitCode != 0)) {
-
-        // Delete the user if the group add command failed.
-        commandLine = L"/usr/sbin/deluser ";
-        commandLine += userName;
-        g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
-        return false;
-    }
-
-    return true;
-}
-
 ULONG DistributionInfo::QueryUid(std::wstring_view userName)
 {
     // Create a pipe to read the output of the launched process.
