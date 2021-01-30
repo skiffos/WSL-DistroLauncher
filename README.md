@@ -16,7 +16,7 @@ Included here for convenience:
 ```
 export SKIFF_CONFIG=virt/wsl,core/nixos
 make compile
-cp ./workspaces/default/images/rootfs.tar.gz ../WSL-DistroLauncher/x64/install.tar.gz
+cp ./workspaces/default/images/skiffos.tar.gz ../WSL-DistroLauncher/x64/skiffos.tar.gz
 ```
 
 Open the DistroLauncher sln, edit SkiffOS.appxmanifest, packaging tab,

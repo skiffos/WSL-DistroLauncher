@@ -43,7 +43,7 @@ BOOL WslApiLoader::WslIsDistributionRegistered()
 
 HRESULT WslApiLoader::WslRegisterDistribution()
 {
-    HRESULT hr = _registerDistribution(_distributionName.c_str(), L"install.tar.gz");
+    HRESULT hr = _registerDistribution(_distributionName.c_str(), L"skiffos.tar.gz");
     if (FAILED(hr)) {
         Helpers::PrintMessage(MSG_WSL_REGISTER_DISTRIBUTION_FAILED, hr);
     }

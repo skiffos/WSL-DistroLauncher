@@ -29,15 +29,13 @@ HRESULT InstallDistribution(bool createUser)
         return hr;
     }
 
-    // Delete /etc/resolv.conf to allow WSL to generate a version based on Windows networking information.
-    DWORD exitCode;
-    hr = g_wslApi.WslLaunchInteractive(L"/bin/rm /etc/resolv.conf", true, &exitCode);
-    if (FAILED(hr)) {
-        return hr;
-    }
+    // TODO: create a user for the windows user, map the "core" user to it.
+    hr = g_wslApi.WslConfigureDistribution(0, WSL_DISTRIBUTION_FLAGS_ENABLE_INTEROP | WSL_DISTRIBUTION_FLAGS_ENABLE_DRIVE_MOUNTING);
+    // ignore failure
 
 	// Print some information about the newly configured distribution.
-	hr = g_wslApi.WslLaunchInteractive(L"/bin/cat /etc/skiff-release", true, &exitCode);
+    DWORD exitCode = 0;
+	hr = g_wslApi.WslLaunchInteractive(L"/usr/bin/neofetch", true, &exitCode);
 	if (FAILED(hr)) {
 		return hr;
 	}
